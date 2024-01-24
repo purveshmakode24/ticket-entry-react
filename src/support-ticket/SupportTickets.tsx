@@ -47,7 +47,6 @@ const SupportTickets = () => {
             } else {
                 window.alert('Not able to resolve the ticket at this moment. Please try again after some time.')
             }
-
         }
     }
 
@@ -88,7 +87,7 @@ const SupportTickets = () => {
                                         <td>{t.type}</td>
                                         <td>{t.assignedTo || '-'}</td>
                                         <td>{t.status}</td>
-                                        <td>{t.resolvedOn}</td>
+                                        <td>{t.resolvedOn || '-'}</td>
                                         <td>
                                             <div className='btn-group mr-2'>
                                                 {t.status === 'Resolved' ?
