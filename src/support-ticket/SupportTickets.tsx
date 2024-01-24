@@ -44,9 +44,8 @@ const SupportTickets = () => {
             });
             const data: any = await response.json();
             if (response.ok) {
-                // setTickets((tickets: any) => tickets.map((t: Ticket) =>
-                //     t._id === id ? { ...t, status: STATUS.RESOLVED, resolvedOn: data.resolvedOn } : t));
-                navigate('/support-tickets/');
+                setTickets((tickets: any) => tickets.map((t: Ticket) =>
+                    t._id === id ? { ...t, status: STATUS.RESOLVED, resolvedOn: data.resolvedOn } : t));
             } else {
                 window.alert('Not able to resolve the ticket at this moment. Please try again after some time.')
             }
@@ -101,7 +100,7 @@ const SupportTickets = () => {
                                             <div className='btn-group mr-2'>
                                                 {t.status === 'Resolved' ?
                                                     (<a href="#" className='btn btn-sm btn-outline-secondary disabled'>
-                                                        Resolved</a>)
+                                                        Resolved</a>): t.status == 'New' ? "-"
                                                     : (<a href="#" className='btn btn-sm btn-outline-primary'
                                                         onClick={() => resolveTicket(t._id)}>Resolve</a>)
                                                 }
