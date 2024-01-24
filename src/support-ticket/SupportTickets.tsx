@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { STATUS } from '../utils';
 import { API_ROOT_URL } from '../config';
 
@@ -19,6 +19,7 @@ export interface Ticket {
 const SupportTickets = () => {
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async () => {
@@ -42,8 +43,9 @@ const SupportTickets = () => {
             });
             const data: any = await response.json();
             if (response.ok) {
-                setTickets((tickets: any) => tickets.map((t: Ticket) =>
-                    t._id === id ? { ...t, status: STATUS.RESOLVED, resolvedOn: data.resolvedOn } : t));
+                // setTickets((tickets: any) => tickets.map((t: Ticket) =>
+                //     t._id === id ? { ...t, status: STATUS.RESOLVED, resolvedOn: data.resolvedOn } : t));
+                navigate('/support-tickets/');
             } else {
                 window.alert('Not able to resolve the ticket at this moment. Please try again after some time.')
             }
