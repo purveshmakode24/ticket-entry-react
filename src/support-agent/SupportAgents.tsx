@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { API_ROOT_URL } from '../config';
 
 
 export interface Agent {
@@ -19,7 +20,7 @@ const SupportAgents = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/support-agents/');
+                const response = await fetch(API_ROOT_URL + 'support-agents');
                 const data = await response.json();
                 console.log(data);
                 setAgents(data);
@@ -70,7 +71,7 @@ const SupportAgents = () => {
                                         <td>{a.email}</td>
                                         <td>{a.phone}</td>
                                         <td>{a.description}</td>
-                                        <td>{a.active? 'Yes': 'No'}</td>
+                                        <td>{a.active ? 'Yes' : 'No'}</td>
                                         <td>{a.dateCreated}</td>
                                         {/* <td>
                                         <div className='btn-group mr-2'>

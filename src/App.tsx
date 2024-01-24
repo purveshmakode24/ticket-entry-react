@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import "primereact/resources/themes/lara-light-cyan/theme.css";
 import './App.css';
 import SupportAgents from './support-agent/SupportAgents';
 import SupportAgentsCreate from './support-agent/SupportAgentsCreate';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout';
 import { Navigate } from 'react-router-dom';
-import { types } from 'util';
 import { SEVERITY, TYPE } from '../utils';
+import { API_ROOT_URL } from '../config';
 
 const SupportTicketsCreate = () => {
     const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const SupportTicketsCreate = () => {
     const submit = async (e: any) => {
         e.preventDefault();
         console.log('formdata', formData)
-        const res = await fetch('http://localhost:8000/api/support-tickets/', {
+        const res = await fetch(API_ROOT_URL + 'support-tickets/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

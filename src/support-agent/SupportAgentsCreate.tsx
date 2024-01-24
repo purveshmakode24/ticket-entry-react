@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout';
 import { Navigate } from 'react-router-dom';
+import { API_ROOT_URL } from '../config';
 
 const SupportAgentsCreate = () => {
     const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ const SupportAgentsCreate = () => {
     const submit = async (e: any) => {
         e.preventDefault();
         console.log('formdata', formData)
-        const res = await fetch('http://localhost:8000/api/support-agents/', {
+        const res = await fetch(API_ROOT_URL + 'support-agents', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

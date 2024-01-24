@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import { Link } from 'react-router-dom';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import { STATUS } from '../utils';
+import { API_ROOT_URL } from '../config';
 
 export interface Ticket {
     _id: string,
@@ -25,7 +24,7 @@ const SupportTickets = () => {
         const getData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:8000/api/support-tickets/');
+                const response = await fetch(API_ROOT_URL + 'support-tickets');
                 const data = await response.json();
                 setTickets(data);
                 setLoading(false);
@@ -38,7 +37,7 @@ const SupportTickets = () => {
 
     const resolveTicket = async (id: string) => {
         if (window.confirm("Are you sure you want to resolve this ticket?")) {
-            const response = await fetch(`http://localhost:8000/api/support-tickets/resolve/${id}`, {
+            const response = await fetch(API_ROOT_URL + `support-tickets/resolve/${id}`, {
                 method: 'PUT'
             });
             const data: any = await response.json();
