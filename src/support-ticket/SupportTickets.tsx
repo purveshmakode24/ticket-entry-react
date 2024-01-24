@@ -28,9 +28,10 @@ const SupportTickets = () => {
                 const response = await fetch(API_ROOT_URL + 'support-tickets');
                 const data = await response.json();
                 setTickets(data);
-                setLoading(false);
             } catch (err) {
                 console.log('Some error occured:', err);
+            } finally {
+                setLoading(false);
             }
         }
         getData();
@@ -50,6 +51,10 @@ const SupportTickets = () => {
                 window.alert('Not able to resolve the ticket at this moment. Please try again after some time.')
             }
         }
+    }
+
+    const rowMsgTempalate = (text: string) => {
+        return <tr><td colSpan={10} style={{ padding: '10px', background: 'transparent' }}>{text}</td></tr>
     }
 
     return (
@@ -78,6 +83,8 @@ const SupportTickets = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            {loading && (rowMsgTempalate('Loading...'))}
+                            {!loading && !tickets.length && (rowMsgTempalate('No tickets available right now.'))}
                             {tickets.map((t: Ticket) => {
                                 return (
                                     <tr key={t._id}>

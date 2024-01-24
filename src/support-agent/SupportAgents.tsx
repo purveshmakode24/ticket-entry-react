@@ -16,30 +16,28 @@ export interface Agent {
 
 const SupportAgents = () => {
     const [agents, setAgents] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             try {
+                setLoading(true);
                 const response = await fetch(API_ROOT_URL + 'support-agents');
                 const data = await response.json();
                 console.log(data);
                 setAgents(data);
             } catch (err) {
                 console.log('Some error occured:', err);
+            } finally {
+                setLoading(false);
             }
         }
         getData();
     }, []);
 
-    // const deleteAgent = async (id: number) => {
-    //     if (window.confirm("Are you sure you want to delete this agent?")) {
-    //         await fetch(`http://localhost:8000/api/support-agents/${id}`, {
-    //             method: 'DELETE'
-    //         });
-    //         setAgents(agents.filter((a: Agent) => a.id !== id));
-    //     }
-    // }
-
+    const rowMsgTempalate = (text: string) => {
+        return <tr><td colSpan={10} style={{ padding: '10px', background: 'transparent' }}>{text}</td></tr>
+    }
 
     return (
         <>
@@ -63,6 +61,8 @@ const SupportAgents = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            {loading && (rowMsgTempalate('Loading...'))}
+                            {!loading && !agents.length && (rowMsgTempalate('No agents available right now.'))}
                             {agents.map((a: Agent) => {
                                 return (
                                     <tr key={a._id}>
@@ -73,12 +73,6 @@ const SupportAgents = () => {
                                         <td>{a.description}</td>
                                         <td>{a.active ? 'Yes' : 'No'}</td>
                                         <td>{a.dateCreated}</td>
-                                        {/* <td>
-                                        <div className='btn-group mr-2'>
-                                            <a href="#" className='btn btn-sm btn-outline-secondary'
-                                                onClick={() => deleteAgent(a.id)}>Delete</a>
-                                        </div>
-                                    </td> */}
                                     </tr>
                                 )
                             })}
