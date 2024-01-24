@@ -1,6 +1,6 @@
 declare const window: any;
 
-export const DEBUG = true; // Keep false in production
+export const DEBUG = false; // Keep false in production
 export const REACT_APP_VERSION = window.REACT_APP_VERSION as string;
 console.log('DEBUG', DEBUG);
 export const API_ROOT_URL = DEBUG ?

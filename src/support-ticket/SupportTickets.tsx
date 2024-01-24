@@ -57,65 +57,63 @@ const SupportTickets = () => {
     }
 
     return (
-        <>
-            <Layout>
-                <div className='pt-3 pb-2 mb-3 border-bottom'>
-                    <div className='btn-toolbar mb-2 mb-md-8'>
-                        <Link to='/support-tickets/create' className='btn btn-primary'>Create +</Link>
-                    </div>
+        <Layout>
+            <div className='pt-3 pb-2 mb-3 border-bottom'>
+                <div className='btn-toolbar mb-2 mb-md-8'>
+                    <Link to='/support-tickets/create' className='btn btn-primary'>Create +</Link>
                 </div>
+            </div>
 
-                <div className="table-responsive" style={{ height: '500px' }}>
-                    <table className="table table-striped table-sm" >
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Topic</th>
-                                <th>Description</th>
-                                <th>Date Created</th>
-                                <th>Severity</th>
-                                <th>Type</th>
-                                <th>Assigned To</th>
-                                <th>Status</th>
-                                <th>Resolved On</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loading && (rowMsgTempalate('Loading...'))}
-                            {!loading && !tickets.length && (rowMsgTempalate('No tickets available right now.'))}
-                            {tickets.map((t: Ticket) => {
-                                return (
-                                    <tr key={t._id}>
-                                        <td>{t._id}</td>
-                                        <td>{t.topic}</td>
-                                        <td>{t.description}</td>
-                                        <td>{t.dateCreated}</td>
-                                        <td>{t.severity}</td>
-                                        <td>{t.type}</td>
-                                        <td>{t.assignedTo || '-'}</td>
-                                        <td>{t.status}</td>
-                                        <td>{t.resolvedOn || '-'}</td>
-                                        <td>
-                                            <div className='btn-group mr-2'>
-                                                {t.status === 'Resolved' ?
-                                                    (<a href="#" className='btn btn-sm btn-outline-secondary disabled'>
-                                                        Resolved</a>): t.status == 'New' ? "-"
+            <div className="table-responsive" style={{ height: '500px' }}>
+                <table className="table table-striped table-sm" >
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Topic</th>
+                            <th>Description</th>
+                            <th>Date Created</th>
+                            <th>Severity</th>
+                            <th>Type</th>
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Resolved On</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loading && (rowMsgTempalate('Loading...'))}
+                        {!loading && !tickets.length && (rowMsgTempalate('No tickets available right now.'))}
+                        {tickets.map((t: Ticket) => {
+                            return (
+                                <tr key={t._id}>
+                                    <td>{t._id}</td>
+                                    <td>{t.topic}</td>
+                                    <td>{t.description}</td>
+                                    <td>{t.dateCreated}</td>
+                                    <td>{t.severity}</td>
+                                    <td>{t.type}</td>
+                                    <td>{t.assignedTo || '-'}</td>
+                                    <td>{t.status}</td>
+                                    <td>{t.resolvedOn || '-'}</td>
+                                    <td>
+                                        <div className='btn-group mr-2'>
+                                            {t.status === 'Resolved' ?
+                                                (<a href="#" className='btn btn-sm btn-outline-secondary disabled'>
+                                                    Resolved</a>) : t.status == 'New' ? "-"
                                                     : (<a href="#" className='btn btn-sm btn-outline-primary'
                                                         onClick={() => resolveTicket(t._id)}>Resolve</a>)
-                                                }
+                                            }
 
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })}
 
-                        </tbody>
-                    </table>
-                </div>
-            </Layout>
-        </>
+                    </tbody>
+                </table>
+            </div>
+        </Layout>
     )
 }
 
