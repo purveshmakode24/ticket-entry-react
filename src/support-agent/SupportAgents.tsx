@@ -47,7 +47,7 @@ const SupportAgents = () => {
                         <Link to='/support-agents/create' className='btn btn-primary'>Create +</Link>
                     </div>
                 </div>
-                <div className="table-responsive">
+                <div className="table-responsive" style={{ height: '500px' }}>
                     <table className="table table-striped table-sm">
                         <thead>
                             <tr>

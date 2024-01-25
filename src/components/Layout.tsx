@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './Nav';
+import Footer from './Footer';
 
 const Layout = (props: any) => {
   return (
@@ -12,6 +13,7 @@ const Layout = (props: any) => {
           </main>
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }

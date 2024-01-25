@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { STATUS } from '../utils';
+import { Link } from 'react-router-dom';
 import { API_ROOT_URL } from '../config';
 
 export interface Ticket {
@@ -19,7 +18,6 @@ export interface Ticket {
 const SupportTickets = () => {
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async () => {
@@ -36,21 +34,6 @@ const SupportTickets = () => {
         }
         getData();
     }, []);
-
-    const resolveTicket = async (id: string) => {
-        if (window.confirm("Are you sure you want to resolve this ticket?")) {
-            const response = await fetch(API_ROOT_URL + `support-tickets/resolve/${id}`, {
-                method: 'PUT'
-            });
-            const data: any = await response.json();
-            if (response.ok) {
-                setTickets((tickets: any) => tickets.map((t: Ticket) =>
-                    t._id === id ? { ...t, status: STATUS.RESOLVED, resolvedOn: data.resolvedOn } : t));
-            } else {
-                window.alert('Not able to resolve the ticket at this moment. Please try again after some time.')
-            }
-        }
-    }
 
     const rowMsgTempalate = (text: string) => {
         return <tr><td colSpan={10} style={{ padding: '10px', background: 'transparent' }}>{text}</td></tr>
@@ -76,8 +59,6 @@ const SupportTickets = () => {
                             <th>Type</th>
                             <th>Assigned To</th>
                             <th>Status</th>
-                            <th>Resolved On</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,18 +75,6 @@ const SupportTickets = () => {
                                     <td>{t.type}</td>
                                     <td>{t.assignedTo || '-'}</td>
                                     <td>{t.status}</td>
-                                    <td>{t.resolvedOn || '-'}</td>
-                                    <td>
-                                        <div className='btn-group mr-2'>
-                                            {t.status === 'Resolved' ?
-                                                (<a href="#" className='btn btn-sm btn-outline-secondary disabled'>
-                                                    Resolved</a>) : t.status == 'New' ? "-"
-                                                    : (<a href="#" className='btn btn-sm btn-outline-primary'
-                                                        onClick={() => resolveTicket(t._id)}>Resolve</a>)
-                                            }
-
-                                        </div>
-                                    </td>
                                 </tr>
                             )
                         })}
