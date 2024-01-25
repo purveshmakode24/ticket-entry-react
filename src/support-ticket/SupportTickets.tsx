@@ -47,7 +47,7 @@ const SupportTickets = () => {
                 </div>
             </div>
 
-            <div className="table-responsive" style={{ height: '500px' }}>
+            <div className="table-responsive" style={{ height: '455px' }}>
                 <table className="table table-striped table-sm" >
                     <thead>
                         <tr>
